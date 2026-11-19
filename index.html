@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sistema acadêmico de Service Desk para abertura e acompanhamento de chamados.">
+  <title>Service Desk Acadêmico</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <p class="eyebrow">Portal interno</p>
+      <h1>Service Desk</h1>
+    </div>
+
+    <nav class="tabs" aria-label="Navegação principal" role="tablist">
+      <button class="tab is-active" id="userTab" type="button"
+        role="tab" aria-selected="true" aria-controls="userView" data-view="userView">
+        Abrir chamado
+      </button>
+      <button class="tab" id="analystTab" type="button"
+        role="tab" aria-selected="false" aria-controls="analystView" data-view="analystView">
+        Painel do analista
+      </button>
+      <button class="tab" id="historyTab" type="button"
+        role="tab" aria-selected="false" aria-controls="historyView" data-view="historyView">
+        Histórico
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="userView" class="view is-active" role="tabpanel"
+      aria-labelledby="userTab">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Usuário</p>
+          <h2 id="openTicketTitle">Abrir chamado</h2>
+        </div>
+        <p>Registre incidentes, solicitações e dúvidas para a equipe de suporte.</p>
+      </div>
+
+      <form id="ticketForm" class="form-panel">
+        <div class="field-grid">
+          <label for="requester">
+            Nome do solicitante
+            <input id="requester" name="requester" type="text"
+              placeholder="Ex.: Ana Souza" maxlength="100" required>
+          </label>
+
+          <label for="email">
+            E-mail
+            <input id="email" name="email" type="email"
+              placeholder="ana@empresa.com" maxlength="150" required>
+          </label>
+
+          <label for="category">
+            Categoria
+            <select id="category" name="category" required>
+              <option value="">Selecione</option>
+              <option value="Hardware">Hardware</option>
+              <option value="Software">Software</option>
+              <option value="Rede">Rede</option>
+              <option value="Acesso">Acesso</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </label>
+
+          <label for="priority">
+            Prioridade inicial
+            <select id="priority" name="priority" required>
+              <option value="Baixa">Baixa</option>
+              <option value="Média" selected>Média</option>
+              <option value="Alta">Alta</option>
+              <option value="Crítica">Crítica</option>
+            </select>
+          </label>
+        </div>
+
+        <label for="title">
+          Título do chamado
+          <input id="title" name="title" type="text"
+            placeholder="Ex.: Não consigo acessar o sistema financeiro"
+            maxlength="150" required>
+        </label>
+
+        <label for="description">
+          Descrição
+          <textarea id="description" name="description" rows="6"
+            maxlength="2000"
+            placeholder="Descreva o problema, quando começou e o impacto para o trabalho."
+            required></textarea>
+        </label>
+
+        <div class="form-actions">
+          <button class="primary" type="submit">Enviar chamado</button>
+          <button type="reset">Limpar</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="analystView" class="view" role="tabpanel"
+      aria-labelledby="analystTab" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Suporte</p>
+          <h2 id="analystTitle">Painel do analista</h2>
+        </div>
+        <label class="search-box" for="searchInput">
+          Buscar chamado
+          <input id="searchInput" type="search"
+            placeholder="Digite ID, título ou solicitante"
+            autocomplete="off">
+        </label>
+      </div>
+
+      <div class="support-layout">
+        <aside class="ticket-list" aria-label="Lista de chamados">
+          <div class="list-header">
+            <strong>Fila de atendimento</strong>
+            <span id="ticketCounter" aria-live="polite">0 chamados</span>
+          </div>
+          <div id="ticketList"></div>
+        </aside>
+
+        <section id="ticketDetails" class="details-panel"
+          aria-label="Detalhes do chamado" aria-live="polite">
+          <div class="empty-state">
+            <h3>Selecione um chamado</h3>
+            <p>Ao escolher um item da fila, os campos de status, prioridade e correção aparecem aqui.</p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="historyView" class="view" role="tabpanel"
+      aria-labelledby="historyTab" hidden>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Auditoria</p>
+          <h2 id="historyTitle">Histórico dos chamados</h2>
+        </div>
+        <button id="clearData" type="button">Limpar base local</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <caption class="visually-hidden">Histórico de chamados registrados no navegador</caption>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Título</th>
+              <th scope="col">Solicitante</th>
+              <th scope="col">Status</th>
+              <th scope="col">Prioridade</th>
+              <th scope="col">Atualizado em</th>
+            </tr>
+          </thead>
+          <tbody id="historyTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
