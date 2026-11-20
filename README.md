@@ -8,9 +8,8 @@ Aplicativo web estático feito em HTML, CSS e JavaScript para demonstrar abertur
 
 O projeto não precisa de servidor local, Node.js, Python ou instalação de dependências.
 
-1. Abra a pasta `service-desk`.
-2. Dê dois cliques no arquivo `abrir-service-desk.bat`; ou
-3. Abra diretamente o arquivo `index.html` em um navegador moderno.
+1. Abra a pasta `service-desk`. ou
+2. Abra diretamente o arquivo `index.html` em um navegador moderno.
 
 ## Funcionalidades
 
